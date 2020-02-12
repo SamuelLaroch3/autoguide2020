@@ -20,4 +20,5 @@ include_once("../src/donnees.inc.php");
 //var_dump(Auto::trouverModele($voitures, 'Ferrari', 'California'));
 
 echo Auto::ariane("Ferrari", "California");
+
 // ... CONTINUER ...
