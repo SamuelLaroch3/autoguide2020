@@ -21,14 +21,14 @@ class Auto {
 	 *   en utilisant le nom de la balise donnée en paramètre
 	 * - Si une $balise n'est pas fournie, on retourne le titre seulement. ex.: "Ferrari Focus"
 	 * @param string $nomMarque - La marque de voiture
-	 * @param string $nomModele - Le modele de voiture
+	 * @param string $nomModele - Le modele de voiture. Valeur par défaut : ""
 	 * @param string $balise - Le nom de la balise devant envelopper le titre. Valeur par défaut : ""
 	 * @return string - Le titre mis en forme
 	*/
 	static public function titre($nomMarque, $nomModele="", $balise="") {
-		$resultat = $nomMarque." ".$nomModele;
-		if ($nomModele) {
-			$resultat = $nomMarque." ".$nomModele;
+		$resultat = $nomMarque;
+		if ($nomModele != "") {
+			$resultat .= " ".$nomModele;
 		}
 		if ($balise != "") {
 			$resultat = '<'.$balise.'>'.$resultat.'</'.$balise.'>';
@@ -44,9 +44,19 @@ class Auto {
 	 * @param string $nomModele - Le modele à rechercher dans la marque
 	 * @return array - Le array du modele ou false
 	 */
+	static public function trouverModele($autos, $nomMarque, $nomModele){
+		if (!isset($autos[$nomMarque])) {
+			return false;
+		}
+		if (!isset($autos[$nomMarque][$nomModele])) {
+			return false;
+		}
+		$resultat = $autos[$nomMarque][$nomModele];
+		return $resultat;
+	}
 
 
-	/** Méthode "ariane" qui retourne le HTML du fil d'Ariane se trouvant DANS le div "menu"
+	/** Méthode "ariane" qui retourne le HTML du fil d'Ariane se trouvant DANS le nav "menu"
 	 * Notes :
 	 * - Si une $nomMarque est fournie, on retourne le titre de la voiture et un lien vers index (voir la maquette)
 	 * - Si une $nomMarque n'est pas fournie, on ne retourne que le mot "Accueil" (voir la maquette)
@@ -54,6 +64,23 @@ class Auto {
 	 * @param string $nomModele - Le modele de voiture. Valeur par défaut : "".
 	 * @return string - Le HTML du fil d'Ariane
 	 */
+
+	 static public function ariane($nomMarque = "", $nomModele = ""){
+		 $resultat = '';
+		 $resultat .= '';
+		 $resultat .= '<nav id="ariane">';
+		 $resultat .= '<ul>';
+		 $resultat .= '<li><a href="index.php">Accueil</a></li>';
+		 if(isset($nomMarque)){
+			$resultat .= '<li><a href="marque.php?nomMarque='.$nomMarque.'">'.$nomMarque.'</a></li>'; 
+		 }
+		 if(isset($nomModele)){
+			$resultat .= '<li><span>'.$nomModele.'</span></li>';
+		 }
+		 $resultat .= '</ul>';
+		 $resultat .= '</nav>';
+		 return $resultat;
+	 }
 
 	 
 	/** Méthode "lien" qui retourne le code HTML d'un lien retrouvé dans la page index

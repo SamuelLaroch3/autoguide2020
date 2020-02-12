@@ -13,6 +13,7 @@ Chaque modèle est lui-même un array associatif contenant les éléments (clés
 	consommation : Un array associatif de la consommation en ville et sur l'autoroute,
 	description : Un paragraphe descriptif,
 */
+//$voiture['Ford']['Fiesta']['transmission'][0]
 $voitures = array(
 	'Ford'=>array(
 		'Fiesta'=>array(
